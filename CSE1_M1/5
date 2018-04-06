@@ -1,0 +1,101 @@
+//Abu Mohamed Faizi Razeeth ID 1241231
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+using namespace std;
+void get_input (double &temp, double &windSpeed, double &dewPoint);
+double compute_windChill (double temp, double windSpeed);
+double compute_cloudBase(double temp, double dewPoint);
+void show_output (double temp, double windSpeed, double dewPoint, double windChill, double cloudBase);
+int main()
+{
+double temp, windSpeed, dewPoint, windChill, cloudBase;
+get_input (temp, windSpeed, dewPoint);
+windChill = compute_windChill (temp, windSpeed);
+cloudBase = compute_cloudBase(temp, dewPoint);
+show_output(temp, windSpeed, dewPoint, windChill, cloudBase);
+return 0;
+ }
+void get_input (double &temp, double &windSpeed, double &dewPoint)
+ {
+cout << endl;
+    cout <<endl;
+    cout << "\t ------------------------------------------------------------  " << endl;
+    cout << "\t|                                                            | " << endl;
+    cout << "\t|    This program determines wind chill using temperature    | " << endl;
+    cout << "\t|    in Fahrenheit and wind speed in mph and computes        | " << endl;
+    cout << "\t|    the cloud base using the dew point in Fahrenheit.       | " << endl;
+    cout << "\t|                                                            | " << endl;
+    cout << "\t ------------------------------------------------------------  " << endl;
+cout << endl;
+    cout << endl;
+    cout << "\tEnter the temperature in degrees Fahrenheit: ";
+    cin >> temp;
+    cout << "\tEnter the wind speed in mph: ";
+    cin >> windSpeed;
+    cout << "\tEnter the dew point in degrees Fahrenheit: ";
+    cin >> dewPoint;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+ }
+double compute_windChill (double temp, double windSpeed)
+ {
+     double windChill;
+     windChill = 35.74 + (0.6215 * temp) - (35.75 * (pow(windSpeed, 0.16))) + (0.4275 * temp * (pow(windSpeed, 0.16)));
+     return (windChill);
+ }
+double compute_cloudBase(double temp, double dewPoint)
+ {
+     double cloudBase;
+     cloudBase = (temp - dewPoint)/4.4 * 1000;
+     return (cloudBase);
+ }
+void show_output (double temp, double windSpeed, double dewPoint, double windChill, double cloudBase)
+ {
+    cout.setf(ios::fixed);
+    cout.setf(ios::showpoint);
+    cout.precision(1);
+if ( temp <= 50 && windSpeed >= 3)
+    {
+    cout <<"\tTemperature \t Wind Speed \t Dew Point \t Wind Chill \t Cloud Base ";
+    cout << endl;
+    cout <<"\t-----------------------------------------------------------------------------";
+    cout <<endl;
+    cout <<"\t   " << temp << " dF";
+    cout <<"\t  " << windSpeed << " mph" ;
+    cout <<"\t  " << dewPoint << " dF";
+    cout <<"\t  " << windChill << " dF";
+    cout <<"\t  " << cloudBase << " ft.";
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    }
+    else
+    {
+    cout <<"\tTemperature \t Wind Speed \t Dew Point \t Wind Chill \t Cloud Base ";
+    cout << endl;
+    cout <<"\t-----------------------------------------------------------------------------";
+    cout <<endl;
+    cout <<"\t   " << temp << " dF";
+    cout <<"\t  " << windSpeed << " mph" ;
+    cout <<"\t  " << dewPoint << " dF";
+    cout <<"\t     ***";
+    cout <<"\t  " << cloudBase << " ft.";
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << "\t*** Temperature must be 50 degrees or less, and";
+    cout << endl;
+    cout << "\t    Wind Speed must be > 3 mph to compute wind chill.";
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    }
+}
+//CSE110_300_AbuMohamedFaiziRazeeth_Lab5.txt
