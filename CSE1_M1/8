@@ -1,0 +1,131 @@
+//Abu Mohamed Faizi Razeeth ID 1241231
+#include <iostream>
+#include <string>
+#include <cstdlib>
+using namespace std;
+void user_input(string& userString);
+bool validate(string& userString, bool& longEnough, bool& foundUpper, bool& foundLower, bool& foundDigit);
+bool confirmation(string userString);
+void user_output(int attempts, string& userString, bool& validPassword, bool& longEnough, bool& foundUpper, bool& foundLower, bool& foundDigit);
+int main()
+{
+int attempts = 0;
+string userString;
+bool validPassword = false;
+bool longEnough;
+bool foundUpper;
+bool foundLower;
+bool foundDigit;
+while((validPassword == false)&&(attempts < 3))
+{
+attempts++;
+user_input(userString);
+validPassword = validate(userString, longEnough, foundUpper, foundLower, foundDigit);
+if (validPassword == true)
+{
+   confirmation(userString);
+}
+user_output(attempts, userString, validPassword, longEnough, foundUpper, foundLower, foundDigit);
+}
+return 0;
+}
+void user_input(string& userString)
+{
+cout<<endl<<"--------------------------------------"<<endl;
+cout<<"Please enter a password that contains:";
+cout<<endl;
+cout<<"At least 8 characters including";
+cout<<endl;
+cout<<"at least one number,";
+cout<<endl;
+cout<<"at least one upper case letter,";
+cout<<endl;
+cout<< "and at least one lower case letter.";
+cout<<endl;
+cout<<endl;
+cout<<"Please Enter the Password: ";
+cin>>userString;
+}
+bool validate(string& userString, bool& longEnough, bool& foundUpper, bool& foundLower, bool& foundDigit)
+{
+int strlen = userString.length();
+if(strlen>7)
+    {
+       longEnough = true;
+    }
+for(int index = 0; index < strlen; index ++)
+{
+    if(isdigit(userString[index]))
+    {
+foundDigit = true;
+}
+if(isupper(userString[index]))
+    {
+foundUpper = true;
+}
+if(islower(userString[index]))
+{
+foundLower = true;
+}
+}
+return(longEnough && foundUpper && foundLower && foundDigit);
+}
+bool confirmation(string userString)
+{
+bool validPassword;
+string secondString;
+cout << "Re-enter password for validation: ";
+cin >> secondString;
+cout << endl;
+if (secondString != userString)
+    {
+        cout<<"These passwords do not match"<<endl;
+        validPassword = false;
+    }
+else if (secondString == userString)
+{
+    cout<<"Password accepted"<<endl;
+    validPassword = true;
+}
+return (validPassword);
+}
+void user_output(int attempts, string& userString, bool& validPassword, bool& longEnough,
+                 bool& foundUpper, bool& foundLower, bool& foundDigit)
+{
+string secondString;
+if ((validPassword == false)&&(attempts == 3))
+{
+cout<<endl<<"That was the third attempt. This session has been locked."<<endl<<endl;
+}
+if(validPassword == false)
+{
+    cout<<endl;
+    cout <<userString<< " is not a valid password."<<endl;
+if (longEnough == false)
+       {
+        cout<<endl;
+        cout << "The password did not contain at least 8 characters.";
+        cout<<endl;
+       }
+if (foundUpper == false)
+       {
+         cout<<endl;
+         cout << "The password did not contain an upper case letter.";
+         cout<<endl;
+       }
+if (foundLower == false)
+       {
+         cout<<endl;
+         cout << "The password did not contain a lowercase letter.";
+         cout<<endl;
+       }
+       if (foundDigit == false)
+       {
+         cout<<endl;
+         cout << "The password did not contain a digit.";
+         cout<<endl;
+       }
+}
+cout << endl;
+}
+//CSE110_300_AbuMohamedFaiziRazeeth_Lab8
