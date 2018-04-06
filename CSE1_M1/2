@@ -1,0 +1,48 @@
+//Abu Mohamed Faizi Razeeth ID 1241231
+/*Lab 3 - Calculate Front and Back Floor Seat Tickets and Balcony Seat Ticket Costs Respectively
+Based On How Many Seats The User Inputs. Additionally, Calculate The Profit
+That The Event Makes From The Total Seat Input And Its Respective Cost.*/
+#include <iostream>
+using namespace std;
+int main()
+{
+   int balcony_ticketsSold, floor_ticketsSold, total_TicketsSold;
+   double floor_ticketReceipts, balcony_ticketReceipts;
+   double grossReceipts, eventCost, eventProfit;
+//input section
+cout << "Enter the total number of tickets sold: ";          //Prompt User
+   cin >> total_TicketsSold;                                    //User Inputs
+   cout << endl;
+//Processing Section
+if (total_TicketsSold <= 200)
+    {
+        floor_ticketsSold = total_TicketsSold;
+        floor_ticketReceipts = total_TicketsSold * 29.0;
+        balcony_ticketsSold = 0;
+        balcony_ticketReceipts = 0;
+    }
+else
+    {
+        floor_ticketsSold = 200;
+        floor_ticketReceipts = floor_ticketsSold * 29.0;
+        balcony_ticketsSold = total_TicketsSold - floor_ticketsSold;
+        balcony_ticketReceipts = balcony_ticketsSold * 19.0;
+    }
+grossReceipts = floor_ticketReceipts + balcony_ticketReceipts;
+    eventCost = 1450.00;
+    eventProfit = grossReceipts - eventCost;
+//Output Section
+cout.setf(ios::fixed);                          //use fixed point
+        cout.setf(ios::showpoint);                     //display the decimal
+        cout.precision(2);                            // display two decimals
+cout << "Floor tickets sold =  " << floor_ticketsSold << endl;
+        cout << "Floor ticket receipts = $" << floor_ticketReceipts << endl;
+        cout << endl;
+        cout << "Balcony tickets sold = " << balcony_ticketsSold << endl;
+        cout << "Balcony ticket receipts = $" << balcony_ticketReceipts << endl;
+        cout << endl;
+        cout << "Gross receipts = $" << grossReceipts << endl;
+        cout << "Profit = $" << eventProfit << endl;
+return 0;
+}
+//CSE110_300_AbuMohamedFaiziRazeeth_Lab2.txt
