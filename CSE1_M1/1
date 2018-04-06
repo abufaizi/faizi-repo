@@ -1,0 +1,24 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+//Abu Mohamed Faizi Razeeth ID 1241231
+int ticketsSold;                                         //Declare variables
+   double grossReceipts;
+   double eventCost;
+   double eventProfit;
+cout<< "Enter the number of tickets sold: ";            //Prompt User
+   cin>>ticketsSold;                                       //User inputs
+   cout << endl;
+grossReceipts = ticketsSold * 29.0;                      //calculate gross receipts
+cout.setf(ios::fixed);                                //use fixed point
+   cout.setf(ios::showpoint);                           //display the decimal
+   cout.precision(2);                                  //display two decimal places
+eventCost = 1450.00;                                 //Fixed Constant
+eventProfit = grossReceipts - eventCost;             //calculate profit
+cout<< "Tickets sold = " << ticketsSold << endl;       //Output
+   cout<< "Gross receipts = $" << grossReceipts <<endl;
+   cout<< "Event Profit = $" << eventProfit <<endl;
+return 0;
+}
+//CSE110_300_AbuMohamedFaiziRazeeth_Lab1.txt
