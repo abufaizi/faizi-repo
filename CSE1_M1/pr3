@@ -1,0 +1,116 @@
+//Abu Mohamed Faizi Razeeth ID 1241231
+#include <iostream>
+#include <windows.h>
+#include <cstdlib>
+#include <cmath>
+using namespace std;
+void get_input(double& rainFallRate, int& duration);                    //Input Declaration
+void showArray(double floodPlain[][18], double waterLevel);             //Two Dimensional Array Display
+void simulate_rain(double rainFallRate, int duration, double floodPlain[][18]);     //Simulation Function Declaration
+void show_output(double waterLevel, int hours, double rainAmount, double& rainfallRate, int duration, double drainRate, double floodPlain[][18]);           //Output Function Declaration
+HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);          //Operating Colors of Text
+int main()
+{
+int duration, hours = 0;
+double rainFallRate, drainRate = 4, waterLevel = 0, rainAmount;
+double floodPlain[18][18] = {
+		{ 12, 13, 14, 15, 16, 16, 16, 17, 17, 18, 18, 19, 20, 20, 20, 19, 18, 18 },
+		{ 12, 12, 13, 14, 15, 16, 14, 15, 15, 16, 18, 19, 20, 20, 20, 19, 17, 16 },
+		{ 11, 11, 12, 13, 14, 15, 14, 13, 13, 14, 16, 19, 20, 20, 20, 19, 17, 16 },
+		{ 10, 10, 11, 12, 13, 14, 12, 10, 11, 11, 11, 12, 18, 14, 12, 12, 15, 16 },
+		{ 10, 10, 10, 11, 12, 11, 10, 8, 9, 8, 7, 11, 14, 12, 12, 12, 14, 15 },
+		{ 9, 10, 10, 11, 11, 12, 8, 6, 6, 5, 5, 8, 12, 12, 11, 12, 14, 15 },
+		{ 8, 10, 10, 10, 10, 8, 6, 5, 5, 5, 6, 10, 10, 10, 11, 13, 13, 15 },
+		{ 7, 7, 7, 6, 5, 4, 4, 4, 5, 6, 7, 10, 10, 10, 10, 13, 14, 16 },
+		{ 6, 6, 5, 5, 4, 3, 3, 4, 5, 6, 8, 10, 10, 10, 10, 11, 12, 12 },
+		{ 6, 6, 5, 5, 4, 3, 4, 5, 6, 7, 10, 10, 11, 12, 12, 19, 14, 16 },
+		{ 8, 6, 5, 6, 6, 4, 5, 5, 6, 8, 10, 10, 10, 10, 11, 19, 15, 17 },
+		{ 10, 7, 6, 7, 7, 5, 6, 5, 7, 9, 10, 10, 10, 10, 12, 19, 16, 18 },
+		{ 11, 8, 7, 8, 8, 6, 8, 9, 10, 12, 15, 16, 16, 17, 15, 16, 17, 18 },
+		{ 12, 10, 8, 10, 10, 7, 9, 10, 12, 15, 16, 16, 17, 17, 16, 17, 18, 18 },
+		{ 13, 12, 10, 10, 10, 8, 9, 10, 12, 15, 16, 16, 17, 17, 18, 19, 18, 18 },
+		{ 13, 13, 12, 12, 12, 10, 10, 11, 13, 15, 16, 16, 17, 17, 18, 19, 18, 18 },
+		{ 13, 13, 12, 12, 12, 10, 10, 11, 13, 15, 16, 16, 17, 17, 19, 19, 18, 18 },
+		{ 14, 13, 13, 12, 12, 12, 12, 13, 14, 15, 16, 16, 17, 17, 20, 19, 18, 18 } };
+if (waterLevel < 0)
+	{
+		waterLevel = 0;
+		Sleep(50);
+		system("CLS");
+	}
+showArray(floodPlain, waterLevel); // Array Display Function Call
+cout << endl << "    Flood Plain Simulation - Press enter to begin: " << endl;
+	cin.get(); // User Presses Enter
+get_input(rainFallRate, duration); // Input Function Call
+Sleep(50);
+	system("CLS");
+simulate_rain(rainFallRate, duration, floodPlain);
+cin.get();
+}
+void get_input(double& rainFallRate, int& duration) // Input Definition
+{
+cout << endl << " Enter the rainfall in inches per hour: ";
+	cin >> rainFallRate;
+	cout << endl << " Enter the number of hours the rain will last: ";
+	cin >> duration;
+cin.get();
+}
+void showArray(double floodPlain[][18], double waterLevel) // Definition of Displays Array
+{
+	int row = 18;
+	int column = 18;
+for (int i = 0; i < row; i++)
+	{
+		for (int j = 0; j < column; j++)
+		{
+			if (floodPlain[i][j] > waterLevel)
+			{
+				SetConsoleTextAttribute(hConsole, 10); // sets text to green
+				cout << " + ";
+				SetConsoleTextAttribute(hConsole, 15); // sets text to white
+			}
+			else
+			{
+				SetConsoleTextAttribute(hConsole, 9); // sets text to blue
+				cout << " * ";
+			}
+		}
+		cout << endl;
+	}
+}
+void simulate_rain(double rainFallRate, int duration, double floodPlain[][18]) //Simulation Definition
+{
+	int hours = 0;
+double rainAmount, drainRate = 4;
+double waterLevel = 0;
+do
+	{
+		system("CLS");
+hours++;                                    //Increasing Hours
+		if (hours <= duration)
+		{
+			waterLevel = waterLevel + rainFallRate;
+			rainAmount = waterLevel;
+		}
+		else                                        //Logic: Receding at 4 inches per hour
+		{
+			waterLevel = waterLevel - drainRate;
+		}
+showArray(floodPlain, waterLevel);              //Calling Array Display Function
+		show_output(waterLevel, hours, rainAmount, rainFallRate, duration, drainRate, floodPlain);      //Calling Output Display Function
+cin.get();
+} while (waterLevel >= 0);                      //Until Rain has totally receded
+}
+void show_output(double waterLevel, int hours, double rainAmount, double& rainFallRate, int duration, double drainRate, double floodPlain[][18])
+{
+	cout.setf(ios::fixed);      //use fixed point
+	cout.setf(ios::showpoint);      //display the decimal
+	cout.precision(2);  //display two decimals
+if (waterLevel < 0) waterLevel = 0;
+cout << endl << "  Total rain fall is : " << rainAmount << " inches";
+	cout << "  Time elapsed is " << hours << " hours. " << endl << endl;
+	cout << "  The water level is " << waterLevel << " inches above sea level." << endl;
+if (duration > 0 && hours >= duration)
+		cout << endl << "       <<  The rain ended after " << duration << " hours  >>" << endl;
+}
+//CSE110_300_AbuMohamedFaiziRazeeth_Project3.txt

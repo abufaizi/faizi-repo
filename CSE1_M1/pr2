@@ -1,0 +1,131 @@
+//Abu Mohamed Faizi Razeeth ID 1241231
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
+#include <windows.h>
+using namespace std;
+void check_seating(int seatingArray[][8], int userRow, int userColumn, bool& seatTaken, int& price);
+bool theater_full(int seatingArray[][8]);
+void showArray (int seatingArray[9][8]);
+int main ()
+{
+    int userRow, userColumn, price;
+    bool seatTaken, theaterFull = false;
+cout << endl;
+cout << endl;
+int seatingArray[9][8] ={
+ { 40, 50, 50, 50, 50, 50, 50, 40 },
+ { 30, 30, 40, 50, 50, 40, 30, 30 },
+ { 20, 30, 30, 40, 40, 30, 30, 20 },
+ { 10, 20, 20, 20, 20, 20, 20, 10 },
+ { 10, 20, 20, 20, 20, 20, 20, 10 },
+ { 10, 20, 20, 20, 20, 20, 20, 10 },
+ { 10, 10, 10, 10, 10, 10, 10, 10 },
+ { 10, 10, 10, 10, 10, 10, 10, 10 },
+ { 10, 10, 10, 10, 10, 10, 10, 10 } };
+cout << endl;
+showArray (seatingArray);
+while (theaterFull != true)
+{
+  cout << endl;
+cout << "Please Select A Theater Seat Row: ";
+cin >> userRow;
+while (userRow <= 0 || userRow > 9)
+{
+    cout << endl;
+    cout << "ATTENTION THE SEAT: " << userRow << " DOES NOT EXIST";
+    cout << endl;
+    cout << endl;
+    cout << "PLEASE CHOOSE ANOTHER THEATER SEAT";
+    cout << endl;
+    cout << endl;
+    cout << "Please Select A Theater Seat Row: ";
+    cin >> userRow;
+    cout << endl;
+}
+cout << endl;
+cout << "Please Select A Theater Seat Column: ";
+cin >> userColumn;
+cout << endl;
+cout << endl;
+while (userColumn <= 0 || userColumn > 8)
+{
+    cout << endl;
+    cout << "ATTENTION THE SEAT:" << userColumn << " DOES NOT EXIST";
+    cout << endl;
+    cout << endl;
+    cout << "PLEASE CHOOSE ANOTHER THEATER SEAT";
+    cout << endl;
+    cout << "Please Select A Theater Seat Column: ";
+    cin >> userColumn;
+    cout << endl;
+}
+check_seating(seatingArray, userRow, userColumn, seatTaken, price);
+cout << "Thank You For Choosing Seat # " << userRow << ":" << userColumn;
+cout << endl;
+cout << "Your ticket price is: $" << price;
+cout << endl;
+cout << endl;
+theaterFull = theater_full(seatingArray);
+Sleep(1800);
+system("CLS");
+cout << endl;
+showArray (seatingArray);
+cout << endl;
+}
+return 0;
+}
+void check_seating(int seatingArray[][8], int userRow, int userColumn, bool& seatTaken, int& price)
+{
+if (seatingArray[userRow - 1][userColumn -1] == -1)  //last -1 assumes using -1 as the flag
+    {
+        seatTaken = true;
+        cout << "ATTENTION: THAT SEAT HAS ALREADY BEEN SOLD";
+        cout << endl;
+        cout << "Please Select Another Seat.";
+        cout << endl;
+    }
+    else
+    {
+        seatTaken = false;
+        price = seatingArray[userRow -1][userColumn -1]; //store the price
+        seatingArray[userRow -1][userColumn - 1] = -1; //set the flag
+    }
+    return;
+}
+bool theater_full(int seatingArray[][8])
+{
+    bool full = true;
+for (int i = 8; i >= 0; i--)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+         if (seatingArray [i][j] != -1)
+         {
+         full = false;
+         return(full);
+         }
+        }
+        return(full);
+    }
+}
+void showArray(int seatingArray[][8])
+{
+    int row = 8;
+    int column = 8;
+cout << "\tAVAILABLE THEATER SEATING";
+cout << endl;
+    cout << endl;
+for (int i = row; i >= 0; i--)
+    {
+        for (int j = 0; j < column; j++)
+        {
+            if (seatingArray[i][j] == -1)
+               cout << "  X";
+            else
+               cout << " $" << seatingArray[i][j];
+        }
+        cout << endl << endl;
+    }
+}
+//CSE110_300_AbuMohamedFaiziRazeeth_Project2.txt
