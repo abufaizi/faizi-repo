@@ -1,0 +1,64 @@
+//Abu Mohamed Faizi Razeeth ID 1241231
+/*Lab 4 - Calculate Area, Perimeter, and Diagonal Of A Rectangle
+Based On The Two Dimensions Of The Rectangle That The User Inputs.*/
+#include <iostream>
+#include <math.h>                                                                        //Math Library for Square Root Functionality
+using namespace std;
+double compute_area (double length, double width);                                      //Declaring Functions
+double compute_perimeter(double length, double width);
+double compute_diagonal(double length, double width);
+void show_output(double area, double perimeter, double diagonal);
+int main()
+{
+    double length, width, area, perimeter, diagonal;
+    cout << "Enter the length of side one: ";
+    cin >> length;
+    cout << "Enter the length of side two: ";
+    cin >> width;
+    cout << endl;
+if (length <= 0 || width <= 0)
+    {
+        cout << "That is not a valid side length.";
+        cout << endl;
+    }
+    else
+    {
+area = compute_area(length, width);                                                //Calling Functions
+    perimeter = compute_perimeter (length, width);
+    diagonal = compute_diagonal(length, width);
+    show_output(area, perimeter, diagonal);
+}
+return 0;
+ }
+double compute_area(double length, double width)                                     //Calculating Area Function -- Function Definition
+ {
+     double area;
+     area = length * width;
+     return (area);
+ }
+double compute_perimeter (double length, double width)                             //Calculating Perimeter Function -- Function Definition
+ {
+     double perimeter;
+     perimeter = (2 * length) + (2 * width);
+     return (perimeter);
+ }
+double compute_diagonal(double length, double width)                              //Calculating Diagonal Function -- Function Definition
+ {
+     double diagonal;
+     diagonal = sqrt((length * length) + (width * width));
+     return (diagonal);
+ }
+void show_output(double area, double perimeter, double diagonal)                //Displaying Output Function  -- Function Definition
+ {
+    cout.setf(ios::fixed);
+    cout.setf(ios::showpoint);
+    cout.precision(1);
+cout << endl;
+      cout << "The area of the rectangle is: " << area;
+      cout << endl;
+      cout << "The perimeter of the rectangle is: " << perimeter;
+      cout << endl;
+      cout << "The diagonal of the rectangle is: " << diagonal;
+      cout << endl;
+}
+//CSE110_300_AbuMohamedFaiziRazeeth_Lab4.txt
