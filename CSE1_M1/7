@@ -1,0 +1,112 @@
+//Abu Mohamed Faizi Razeeth ID 1241231
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
+using namespace std;
+void open_files(ifstream& inStream, ofstream& outStream);
+void fill_array(double dollarAmountArray[], int size, int& slotsPopulated);
+void bubble_sort(double dollarAmountArray[], int slotsPopulated);
+void output_data(double dollarAmountArray[], int slotsPopulated);
+void display_data(double dollarAmountArray[], int slotsPopulated);
+ifstream inStream;
+ofstream outStream;
+int main()
+{
+double minIndex;
+double dollarAmountArray[20];
+int slotsPopulated = 0; // variable for the array slot number
+double inputValue = 0; // variable to hold the value
+open_files(inStream, outStream);
+fill_array(dollarAmountArray, 20,  slotsPopulated);    //populate function
+bubble_sort(dollarAmountArray, slotsPopulated);     //sorting function
+output_data(dollarAmountArray, slotsPopulated);
+display_data(dollarAmountArray, slotsPopulated);
+{
+inStream.close(); // closes the in file
+outStream.close(); //closes the out file
+}
+    return 0;
+}
+void open_files(ifstream& inStream, ofstream& outStream)
+{
+    inStream.open("salesAmounts.txt");
+if(inStream.fail())
+    {
+        cout << "input file opening failed.\n";             //in file failure
+        exit(1);
+    }
+outStream.open("AbuFaizi.txt");
+if(outStream.fail())
+    {
+        cout << "Output file opening failed.\n";            //out file failure
+        exit(1);
+    }
+}
+void fill_array(double dollarAmountArray[], int arraySize, int& slotsPopulated)
+{
+    int index = 0;              //declare an index for the array
+    double nextValue;
+inStream >> nextValue;
+while((nextValue> 0)&&(index < arraySize))          //Sentinel
+    {
+        dollarAmountArray[index] = nextValue;           //index for the array
+        index++;
+        inStream >> nextValue;
+    }
+    slotsPopulated = index;
+}
+void bubble_sort(double dollarAmountArray[], int slotsPopulated)        //pass by array
+{
+ for (int i = slotsPopulated -1; i > 0; i--) // counts down
+for (int j = 0; j < i; j++) // counts up
+if (dollarAmountArray[j] > dollarAmountArray[j + 1])
+ {
+    double temp = dollarAmountArray[j + 1];
+    dollarAmountArray[j + 1] = dollarAmountArray[j];
+    dollarAmountArray[j] = temp;
+ }
+}
+void output_data(double dollarAmountArray[], int slotsPopulated)
+{
+    int index = 0;
+cout.setf(ios::fixed);
+    cout.setf(ios::showpoint);
+    cout.precision(2); // display two decimal places
+cout << "The number of sales amounts in the file is:"<<" " << slotsPopulated << "\n" ;
+cout << endl;
+cout << "The smallest sale amount is:" << " " << "$ " << dollarAmountArray[0] << endl ;
+cout << endl;
+cout <<  "The largest sales amount is:" << " " << "$ " << dollarAmountArray[9] << endl;
+cout << endl;
+cout << "The list of amounts sorted from lowest to highest:";
+cout << endl;
+cout << endl;
+cout << endl;
+for (int x = 0; x < slotsPopulated; ++x)
+       cout <<"\t\t$ "<< dollarAmountArray[x] << "\n";
+cout << endl;
+cout << endl;
+}
+void display_data(double dollarAmountArray[], int slotsPopulated)
+{
+     int index = 0;
+outStream.setf(ios::fixed);
+    outStream.setf(ios::showpoint);
+    outStream.precision(2);
+outStream << "The number of sales amounts in the file is:"<<" " << slotsPopulated << "\n" ;
+outStream << endl;
+outStream << "The smallest sale amount is:" << " " << "$ " << dollarAmountArray[0] << endl ;
+outStream << endl;
+outStream <<  "The largest sales amount is:" << " " << "$ " << dollarAmountArray[9] << endl;
+outStream << endl;
+outStream << "The list of amounts sorted from lowest to highest:";
+outStream << endl;
+outStream << endl;
+outStream << endl;
+for (int x = 0; x < slotsPopulated; ++x)
+       outStream <<"\t\t$ "<< dollarAmountArray[x] << "\n";
+       outStream.close();                                                               //close of output file
+outStream << endl;
+outStream << endl;
+}
+//CSE110_300_AbuMohamedFaiziRazeeth_Lab7.txt

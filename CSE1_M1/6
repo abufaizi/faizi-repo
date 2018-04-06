@@ -1,0 +1,69 @@
+//Abu Mohamed Faizi Razeeth ID 1241231
+/*This Program Calculates The Maximum Breaking Point Tension Based
+On The User's Input Of Length And Thickness */
+#include <iostream>
+using namespace std;
+void get_input (double &cable_length, double &cable_thickness);                            //Function Declarations
+void compute_tension (double cable_length, double cable_thickness);
+void show_output (int tension, double new_length);
+int main()
+{
+int tension;
+double cable_length, cable_thickness, new_length;                                           //Function Calls
+get_input (cable_length, cable_thickness);
+compute_tension (cable_length, cable_thickness);
+//show_output (tension, new_length);
+return 0;
+}
+void get_input (double &cable_length, double &cable_thickness)                              //Input Function
+{
+cout << "Enter the length of the cable in feet: ";                                      //Primary Prompts
+    cin >> cable_length;
+    cout << endl;
+    cout << "Enter the thickness of the cable up to 2.0 inches: ";
+    cin >> cable_thickness;
+    cout << endl;
+while (cable_length <= 0)                                                              //Invalid Length Information Loop
+   {
+    cout << "That is an invalid cable length.";
+    cout << endl;
+    cout << "Enter the length of the cable in feet: ";                                  //Secondary Length Prompt
+    cin >> cable_length;
+    cout << endl;
+   }
+while  (cable_thickness <= 0 || cable_thickness > 2 )                                //Invalid Thickness Information Loop
+{
+    cout << endl;
+    cout << "The thickness must be 2.0 inches or less.";
+    cout << endl;
+    cout << "Enter the thickness of the cable up to 2.0 inches: ";                     //Secondary Thickness Prompt
+    cin >> cable_thickness;
+    cout << endl;
+    }
+}
+void compute_tension(double cable_length, double cable_thickness)                       //Tension Calculation Function
+{
+int tension = 0;
+double new_length = cable_length;
+while(new_length < (cable_length *1.16))                                                        //Post-Length Loop
+{
+tension++;                                                                                      //Tension Loop
+new_length = new_length + (cable_thickness*0.3);                                               //Post-Length Algorithm
+show_output(tension,new_length);
+}
+    cout << endl;
+    cout <<"The cable has broken.";
+    cout << endl;
+}
+void show_output (int tension, double new_length)                                       //Output Function
+{
+cout.setf(ios::fixed);
+    cout.setf(ios::showpoint);
+    cout.precision(1);
+cout << "The tension applied to the cable is: " << tension << " lbs";
+    cout << endl;
+    cout << "The length of the cable is: " << new_length << " feet";
+    cout << endl;
+    cout << endl;
+}
+//CSE110_300_AbuMohamedFaiziRazeeth_Lab6.txt
