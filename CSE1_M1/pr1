@@ -1,0 +1,113 @@
+//Abu Mohamed Faizi Razeeth ID 1241231
+#include <iostream>
+#include <cmath>
+#include <fstream>
+#include <cstdlib>
+#include <iomanip>
+using namespace std;
+void open_files(ifstream& inStream, ofstream& outStream);                                            //function declaration of file stream input and output types
+double compute_windChill(double temp, double windSpeed);
+double compute_cloudBase(double temp, double dewPoint);
+void show_header(ostream& output);
+void show_footer(ostream& output);
+void show_output(double temp, double windSpeed, double dewPoint, double windChill, double cloudBase, ostream& output);
+int main()
+{
+	double temp, windSpeed, dewPoint, windChill, cloudBase;
+	ifstream inStream;                                                                  //input from a file
+	ofstream outStream;                                                                 //output to a file
+open_files(inStream, outStream);                                                    //call file opening function
+show_header(cout);
+	show_header(outStream);
+inStream >> temp >> windSpeed >> dewPoint;                                         //read first set of data
+while (temp != -99)                                                                //test condition
+	{
+		windChill = compute_windChill(temp, windSpeed);                                //call computation functions here
+cloudBase = compute_cloudBase(temp, dewPoint);
+show_output(temp, windSpeed, dewPoint, windChill, cloudBase, cout);            //call the output function here
+		show_output(temp, windSpeed, dewPoint, windChill, cloudBase, outStream);
+		inStream >> temp >> windSpeed >> dewPoint;                                     //read next set of data
+	}
+show_footer(cout);
+	show_footer(outStream);
+inStream.close();                                                                   //close input file
+	outStream.close();                                                                  //close output file
+return 0;
+}
+void open_files(ifstream& inStream, ofstream& outStream)
+{
+inStream.open("weatherData.txt");
+if (inStream.fail())                                                //file validation
+	{
+		cout << "Input file opening failed.";
+		cout << endl;
+		exit(1);
+	}
+outStream.open("AbuFaizi.txt");
+if (outStream.fail())                                              //file validation
+	{
+		cout << "Output file opening failed.";
+		cout << endl;
+		exit(1);
+	}
+}
+double compute_windChill(double temp, double windSpeed)
+{
+	double windChill;
+	windChill = 35.74 + (0.6215 * temp) - (35.75 * (pow(windSpeed, 0.16))) + (0.4275 * temp * (pow(windSpeed, 0.16)));
+	return (windChill);
+}
+double compute_cloudBase(double temp, double dewPoint)
+{
+     double cloudBase;
+     cloudBase = (temp - dewPoint)/4.4 * 1000;
+     return (cloudBase);
+}
+void show_header(ostream& output)
+{
+    output << endl;
+	output << "\tTemperature \t Wind Speed \t Dew Point \t Wind Chill \t Cloud Base ";
+	output << endl;
+	output << "\t-----------------------------------------------------------------------------";
+}
+void show_output(double temp, double windSpeed, double dewPoint, double windChill, double cloudBase, ostream& output)
+{
+	output.setf(ios::fixed);
+	output.setf(ios::showpoint);
+	output.setf(ios::right);
+	output.precision(1);
+if (temp <= 50 && windSpeed >= 3)
+	{
+output << endl;
+		output << "\t   " << temp << " dF";
+		output << "\t  " << windSpeed << " mph";
+		output << "\t  " << dewPoint << " dF";
+		output << "\t  " << windChill << " dF";
+		output << "\t  " << cloudBase << " ft";
+	}
+else
+{
+output << endl;
+		output << "\t   " << temp << " dF";
+		output << "\t  " << windSpeed << " mph";
+		output << "\t  " << dewPoint << " dF";
+		output << "\t     ***";
+		output << "\t  " << cloudBase << " ft.";
+}
+}
+void show_footer(ostream& output)
+{
+	output << endl;
+	output << endl;
+	output << endl;
+	output << "\t *** There is no wind chill factor at this temperature or wind speed. ***";
+	output << endl;
+	output << endl;
+	output << endl;
+	output << "\t *** Temperature must be 50 degrees or less, and";
+	output << endl;
+	output << "\t     Wind Speed must be >= 3 mph to compute wind chill.";
+	output << endl;
+	output << endl;
+}
+//CSE110_300_AbuMohamedFaiziRazeeth_Project1.txt
